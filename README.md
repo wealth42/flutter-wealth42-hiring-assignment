@@ -18,6 +18,7 @@ The /preference-details API is supposed to build rest of the screen containing t
 The request to both the APIs has to be parallel and not blocking.
 
 ENDPOINTS:
+
     MIRT Amount
     https://raw.githubusercontent.com/wealth42/flutter-wealth42-hiring-assignment/master/mocks/mirt-amount.json
 
