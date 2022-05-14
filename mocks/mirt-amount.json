@@ -1,0 +1,10 @@
+{
+    "status": "OK",
+    "data": {
+        "expected_monthly_income": {
+            "c": "INR",
+            "a": 1264437
+        },
+        "is_financially_independent": false
+    }
+}

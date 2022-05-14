@@ -1,0 +1,71 @@
+{
+    "status": "OK",
+    "data": {
+        "plan": 1921,
+        "mirt": {
+            "risk_profile": "Balanced",
+            "life_expectancy": 60,
+            "monthly_expenses": {
+                "house_rent": 0,
+                "other_household_expenses": 20000
+            },
+            "current_savings": 1.0,
+            "retirement_age": 70
+        },
+        "assumptions": {
+            "income_growth": "7.00%",
+            "inflation_rate": "5%",
+            "contingency_period": "6 months"
+        },
+        "cards": [
+            {
+                "id": 5825,
+                "type": "Vacation",
+                "icon_background": "FFE6C9",
+                "icon_url": "https://static.wealth42.com/mobile_app_collateral/mirt_screen_collateral/Vacation.png",
+                "currency_unit": "INR",
+                "recurrence_type": "Recurring",
+                "recurrence_unit": "Year",
+                "recurrence_amount": 10,
+                "date": null,
+                "notes": [],
+                "gleia_type": "GOAL",
+                "on_loan": false,
+                "start_date": "2027-04-28",
+                "end_date": "2085-01-01",
+                "amount": 200000,
+                "minimum": 0,
+                "name": "DOMESTIC VACATION",
+                "inflation": "0.08",
+                "down_payment_pct": "1.0000",
+                "loan_interest_rate_pct": "0.0000",
+                "loan_tenor_years": 0,
+                "plan": 1921
+            },
+            {
+                "id": 6168,
+                "type": "Home",
+                "icon_background": "E1E7FA",
+                "icon_url": "https://static.wealth42.com/mobile_app_collateral/mirt_screen_collateral/Home.png",
+                "currency_unit": "INR",
+                "recurrence_type": "One Time",
+                "recurrence_unit": null,
+                "recurrence_amount": null,
+                "date": "2022-08-31",
+                "notes": [],
+                "gleia_type": "GOAL",
+                "on_loan": false,
+                "start_date": null,
+                "end_date": null,
+                "amount": 5000000,
+                "minimum": 0,
+                "name": "new home",
+                "inflation": "0.05",
+                "down_payment_pct": "1.0000",
+                "loan_interest_rate_pct": "0.0000",
+                "loan_tenor_years": 0,
+                "plan": 1921
+            }
+        ]
+    }
+}
