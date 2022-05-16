@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:task/model/playground.dart';
 
 dioGetMirtAmount() async {
   try {
@@ -22,13 +23,13 @@ dioPreferenceDetails() async {
       "https://raw.githubusercontent.com/wealth42/flutter-wealth42-hiring-assignment/master/mocks/preference-details.json",
     );
     if (response.statusCode == 200) {
-      // print(response.data);
-
-      playground = response.data;
-
-      // playground = Playground.fromJson(response.data);
-      // print(playground);
-      return jsonDecode(response.data);
+      var data = jsonDecode(response.data);
+      //print("here1");
+      playground = Playground.fromJson(data);
+      // print("here2");
+      print(playground.cards[0]['id']);
+      //return data;
+      return playground;
     } else {
       print(response.statusCode);
     }

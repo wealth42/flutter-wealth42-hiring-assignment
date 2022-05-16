@@ -19,16 +19,16 @@ class Playground {
       cards: json["data"]["cards"],
     );
   }
-  // Map<String, dynamic> toJson() => {
-  //       "plan": plan,
-  //       "mirt": mirt,
-  //       "assumptions": assumptions,
-  //       "cards": (cards as List)
-  //           .map(
-  //             (i) => CardsModel.fromJson(i),
-  //           )
-  //           .toList(),
-  //     };
+  Map<String, dynamic> toJson() => {
+        "plan": plan,
+        "mirt": mirt,
+        "assumptions": assumptions,
+        "cards": (cards as List)
+            .map(
+              (i) => CardsModel.fromJson(i),
+            )
+            .toList(),
+      };
 }
 
 class CardsModel {

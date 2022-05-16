@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:task/model/playground.dart';
 import 'package:task/services/api.dart';
 import 'package:task/view/bottom_card.dart';
 import 'package:task/view/gold_card.dart';
@@ -67,23 +68,19 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
     setState(() {
       isLoadingDetails = true;
     });
-    var detailData = await dioPreferenceDetails();
+    Playground detailData = await dioPreferenceDetails();
     Future.delayed(Duration(seconds: 2), () {
       setState(() {
-        prefDetails = detailData['data'];
-        riskProfileValue = detailData['data']['mirt']['risk_profile'];
-        lifeExpectancyValue =
-            detailData['data']['mirt']['life_expectancy'].toString();
-        monthlyExpanseValue = detailData['data']['mirt']['monthly_expenses']
+        prefDetails = detailData;
+        riskProfileValue = detailData.mirt['risk_profile'];
+        lifeExpectancyValue = detailData.mirt['life_expectancy'].toString();
+        monthlyExpanseValue = detailData.mirt['monthly_expenses']
                 ['other_household_expenses']
             .toString();
-        monthlyExpanseValue2 = detailData['data']['mirt']['monthly_expenses']
-                ['house_rent']
-            .toString();
-        currentSavingsValue =
-            detailData['data']['mirt']['current_savings'].toString();
-        retirementAgeValue =
-            detailData['data']['mirt']['retirement_age'].toString();
+        monthlyExpanseValue2 =
+            detailData.mirt['monthly_expenses']['house_rent'].toString();
+        currentSavingsValue = detailData.mirt['current_savings'].toString();
+        retirementAgeValue = detailData.mirt['retirement_age'].toString();
         isLoadingDetails = false;
       });
       print(prefDetails);
@@ -204,7 +201,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                             GestureDetector(
                               onTap: () async {},
                               child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 6),
                                 decoration: BoxDecoration(
                                     color: Color(0xff2E52EF),
@@ -229,7 +226,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                               highlightColor: Colors.white,
                               child: _buildGoalCard())
                           : _buildGoalCard(),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 24.0, vertical: 8),
@@ -392,7 +389,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                 Text(
                   isLoadingDetails
                       ? "My income grows by 7% every year"
-                      : "My income grows by ${prefDetails['assumptions']['income_growth']} every year",
+                      : "My income grows by ${prefDetails.assumptions['income_growth']} every year",
                   style: GoogleFonts.manrope(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
@@ -412,7 +409,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                 Text(
                   isLoadingDetails
                       ? "An Inflation rate of 5%"
-                      : "An Inflation rate of ${prefDetails['assumptions']['inflation_rate']} ",
+                      : "An Inflation rate of ${prefDetails.assumptions['inflation_rate']} ",
                   style: GoogleFonts.manrope(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
@@ -432,7 +429,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                 Text(
                   isLoadingDetails
                       ? "Reserving contingency for 2 months"
-                      : "Reserving contingency for ${prefDetails['assumptions']['contingency_period']}",
+                      : "Reserving contingency for ${prefDetails.assumptions['contingency_period']}",
                   style: GoogleFonts.manrope(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
@@ -455,7 +452,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
     showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(16),
             topLeft: Radius.circular(16),
@@ -468,7 +465,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
             return Container(
               height: 330,
               padding: EdgeInsets.all(24),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(16),
                   topLeft: Radius.circular(16),
@@ -531,7 +528,9 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                         );
                       }).toList(),
                       onChanged: (String? value) {
-                        riskValue = value!;
+                        setState(() {
+                          riskValue = value!;
+                        });
                       },
                     ),
                   ),
