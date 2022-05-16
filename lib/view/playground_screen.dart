@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:task/services/api.dart';
+import 'package:task/view/bottom_card.dart';
+import 'package:task/view/gold_card.dart';
+import 'package:task/view/preferenceCard.dart';
 import 'package:video_player/video_player.dart';
 
 class PlaygroundScreen extends StatefulWidget {
@@ -236,6 +239,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                               fontSize: 14, fontWeight: FontWeight.w700),
                         ),
                       ),
+
                       //Assumptions Card
                       isLoadingDetails
                           ? Shimmer.fromColors(
@@ -243,6 +247,8 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                               highlightColor: Colors.white,
                               child: _buildAssumptionsCard())
                           : _buildAssumptionsCard(),
+
+                      //Question
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 24.0, vertical: 4),
@@ -288,85 +294,9 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        padding: EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [Color(0xff5A18AF), Color(0xFFB84BFB)]),
-                          // borderRadius: BorderRadius.only(
-                          //   topRight: Radius.circular(16),
-                          //   topLeft: Radius.circular(16),
-                          // ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Text("Happy with your settings?",
-                                    style: GoogleFonts.manrope(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                                Positioned(
-                                  right: -8,
-                                  top: -4,
-                                  child: Image.asset(
-                                    "assets/star1.png",
-                                    width: 11,
-                                  ),
-                                ),
-                                Positioned(
-                                  right: -15,
-                                  top: 4,
-                                  child: Image.asset(
-                                    "assets/star2.png",
-                                    width: 8,
-                                  ),
-                                ),
-                                Positioned(
-                                  right: -20,
-                                  top: -8,
-                                  child: Image.asset(
-                                    "assets/star3.png",
-                                    width: 8,
-                                  ),
-                                ),
-                              ],
-                              overflow: Overflow.visible,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-                                style: GoogleFonts.manrope(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                )),
-                            SizedBox(height: 24),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Show me my plan",
-                                  style: GoogleFonts.manrope(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
-                                      color: Color(0xff1A1B22)),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
+
+                      //Bottom Card
+                      _buildBottomCard(),
                     ],
                   )))
         ],
@@ -429,188 +359,16 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
       {required String labelText,
       required String value,
       required functionName()}) {
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xffD4D4E1),
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                      offset: Offset(0, 1),
-                    ),
-                  ]),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Text(
-                      "$labelText",
-                      style: GoogleFonts.manrope(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Color(0xff34353E),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "$value",
-                        style: GoogleFonts.manrope(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                          color: Color(0xff34353E),
-                        ),
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: functionName,
-                        icon: Icon(
-                          Icons.edit,
-                        ),
-                        iconSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+    return PreferenceCard(
+        labelText: labelText, value: value, functionName: functionName);
   }
 
   Widget _buildGoalCard() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8.0),
-      child: Container(
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xffD4D4E1),
-                blurRadius: 8,
-                spreadRadius: 0,
-                offset: Offset(0, 4),
-              ),
-            ]),
-        child: Column(
-          children: [
-            Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 36,
-                        width: 36,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Color(0xffe1e7fa),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Icon(
-                          Icons.home_rounded,
-                          color: Color(0xff2E52EF),
-                          size: 14.13,
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "My cozy 3BHK apartment",
-                            style: GoogleFonts.manrope(
-                              color: Color(0xff333333),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            "July 2034",
-                            style: GoogleFonts.manrope(
-                              color: Color(0xff333333),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "edit",
-                    style: GoogleFonts.manrope(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff2E52EF)),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "₹ 50,00,000",
-                  style: GoogleFonts.manrope(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 22,
-                    color: Color(0xff333333),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        color: Color(0xffD2D6E2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                        child: Text("₹",
-                            style: TextStyle(
-                              color: Color(0xff2A2C33),
-                              fontSize: 10,
-                            )),
-                      ),
-                    ),
-                    SizedBox(width: 6),
-                    Text(
-                      "35L Loan",
-                      style: GoogleFonts.manrope(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Color(0xff333333),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+    return GoalCard();
+  }
+
+  Widget _buildBottomCard() {
+    return BottomCard();
   }
 
   Widget _buildAssumptionsCard() {
@@ -688,6 +446,8 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
       ),
     );
   }
+
+  /* -----------------------------     BottomSheets      ------------------------*/
 
   editRiskProfile() {
     // _controller.pause();
